@@ -48,4 +48,9 @@ public class SolutionTest {
     public void buildsSolutionWithInputFile() throws Exception {
         assertThat(withInputFile()).isNotNull();
     }
+
+    public void assertOutput() {
+        assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
+    }
+    
 }

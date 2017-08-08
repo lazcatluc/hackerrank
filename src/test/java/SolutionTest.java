@@ -54,4 +54,10 @@ public class SolutionTest {
         return assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
     }
     
+    @Test
+    public void outputs2341ForTestInput() throws Exception {
+        withInputFile().solve();
+        
+        assertOutput().isEqualTo("2 3 4 1");
+    }
 }

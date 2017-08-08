@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class Solution {
     
@@ -22,7 +23,9 @@ public class Solution {
     }
 
     public void solve() {
-        // TODO Auto-generated method stub
-        
+        int arrayLength = in.nextInt();
+        int[] arr = new int[arrayLength];
+        IntStream.range(0, arrayLength).forEach(i -> arr[i] = in.nextInt());
+        IntStream.range(1, arrayLength + 1).forEach(i -> out.print((i == 1 ? "" : " ") + arr[arrayLength - i]));
     }
 }

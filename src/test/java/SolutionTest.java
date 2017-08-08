@@ -54,4 +54,13 @@ public class SolutionTest {
         return assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
     }
     
+    @Test
+    public void appendQueryAppendsToSequence() throws Exception {
+        Solution solution = withInput("1 1 1 0 0");
+        
+        Solution.AppendQuery appendQuery = solution.new AppendQuery();
+        appendQuery.accept(0, 0);
+        
+        assertThat(solution.getSequence(0).get(0)).isEqualTo(0);
+    }
 }

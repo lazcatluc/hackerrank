@@ -54,4 +54,17 @@ public class SolutionTest {
         return assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
     }
     
+    @Test
+    public void hourglassAt11HasSum7() throws Exception {
+        Solution solution = withInputFile();
+        
+        assertThat(solution.hourglassSum(1, 1)).isEqualTo(7);
+    }
+    
+    @Test
+    public void inputFileHasSum19() throws Exception {
+        withInputFile().solve();
+        
+        assertOutput().isEqualTo("19");
+    }
 }

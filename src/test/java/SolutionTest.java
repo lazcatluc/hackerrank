@@ -51,4 +51,10 @@ public class SolutionTest {
         return assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
     }
     
+    @Test
+    public void solvesInput() throws Exception {
+        withInputFile().solve();
+        
+        assertOutput().matches("2\\r?\\n1\\r?\\n0\\r?\\n");
+    }
 }

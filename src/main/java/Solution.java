@@ -3,7 +3,10 @@
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class Solution {
     
@@ -22,7 +25,11 @@ public class Solution {
     }
 
     public void solve() {
-        // TODO Auto-generated method stub
+        int n = in.nextInt();
+        Map<String, Integer> strings = new HashMap<>();
+        IntStream.range(0, n).mapToObj(i -> in.next()).forEach(str -> strings.compute(str, (s, prev) -> prev == null ? 1 : prev + 1));
         
+        int q = in.nextInt();
+        IntStream.range(0, q).forEach(i -> out.println(strings.getOrDefault(in.next(), 0)));
     }
 }

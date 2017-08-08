@@ -1,9 +1,11 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 import org.assertj.core.api.AbstractCharSequenceAssert;
@@ -51,4 +53,18 @@ public class SolutionTest {
         return assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
     }
     
+    @Test
+    public void solvesInputOutput() throws Exception {
+        withInputFile().solve();
+        
+        assertOutput().isEqualToIgnoringWhitespace(readOutput());
+    }
+
+    private String readOutput() throws IOException {
+        try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Solution.class.getResourceAsStream("output.txt"), Charset.forName("UTF-8")))) {
+            return bufferedReader.lines().reduce(new StringBuilder(), 
+                    (sb, s) -> sb.append(s).append("\n"), 
+                    (sb1, sb2) -> sb1.append(sb2)).toString();
+        }
+    }
 }

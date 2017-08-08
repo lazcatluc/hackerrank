@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.stream.IntStream;
 
 import org.assertj.core.api.AbstractCharSequenceAssert;
 import org.junit.After;
@@ -58,6 +59,19 @@ public class SolutionTest {
         withInputFile().solve();
         
         assertOutput().isEqualToIgnoringWhitespace(readOutput());
+    }
+    
+    @Test(timeout = 5000)
+    public void solvesHugeInputInTimelyFashion() throws Exception {
+        int n = 10000000;
+        int m = 200000;
+        long k = 1_000_000_000;
+        
+        StringBuilder inputBuilder = new StringBuilder().append(n).append(" ").append(m).append("\n");
+        IntStream.range(0, m).forEach(i -> inputBuilder.append(1).append(" ").append(n).append(" ").append(k).append("\n"));
+        withInput(inputBuilder.toString()).solve();
+        
+        assertOutput().isEqualTo("200000000000000");
     }
 
     private String readOutput() throws IOException {

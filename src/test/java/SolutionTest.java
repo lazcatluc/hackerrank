@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
+import org.assertj.core.api.AbstractCharSequenceAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,8 +50,8 @@ public class SolutionTest {
         assertThat(withInputFile()).isNotNull();
     }
 
-    public void assertOutput() {
-        assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
+    public AbstractCharSequenceAssert<?, String> assertOutput() {
+        return assertThat(new String(out.toByteArray(), Charset.forName("UTF-8")));
     }
     
 }

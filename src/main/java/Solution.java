@@ -17,6 +17,7 @@ public class Solution {
     private final int n;
     private final int q;
     private int lastAnswer;
+    private boolean lastAnswerChanged;
     
     public Solution(InputStream in, OutputStream out, String[] args) {
         this.in = new Scanner(in);
@@ -50,6 +51,20 @@ public class Solution {
         @Override
         public void accept(int x, int y) {
             getWithLastAnswer(x).append(y);
+        }
+        
+    }
+    
+    class AssignQuery implements Query {
+
+        @Override
+        public void accept(int x, int y) {
+            if (lastAnswerChanged) {
+                out.println(); 
+            }
+            lastAnswer = getWithLastAnswer(x).get(y);
+            lastAnswerChanged = true;
+            out.print(lastAnswer);
         }
         
     }

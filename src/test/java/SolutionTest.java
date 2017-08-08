@@ -42,7 +42,7 @@ public class SolutionTest {
     
     @Test
     public void buildsSolutionWithInput() throws Exception {
-        assertThat(withInput("input")).isNotNull();
+        assertThat(withInput("1 1")).isNotNull();
     }
     
     @Test
@@ -56,11 +56,22 @@ public class SolutionTest {
     
     @Test
     public void appendQueryAppendsToSequence() throws Exception {
-        Solution solution = withInput("1 1 1 0 0");
+        Solution solution = withInput("1 1");
         
         Solution.AppendQuery appendQuery = solution.new AppendQuery();
         appendQuery.accept(0, 0);
         
         assertThat(solution.getSequence(0).get(0)).isEqualTo(0);
+    }
+    
+    @Test
+    public void assignQueryChangesLastAnswer() throws Exception {
+        Solution solution = withInput("1 1");
+        
+        solution.new AppendQuery().accept(0, 1);
+        Solution.AssignQuery assignQuery = solution.new AssignQuery();
+        assignQuery.accept(0, 0);
+        
+        assertOutput().isEqualTo("1");
     }
 }

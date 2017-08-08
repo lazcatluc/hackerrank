@@ -4,9 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 public class Solution {
     
@@ -26,7 +29,9 @@ public class Solution {
         this.n = this.in.nextInt();
         this.q = this.in.nextInt();
         sequences = new Sequence[n];
-        Arrays.fill(sequences, new Sequence());
+        for (int i = 0; i < n; i++) {
+            sequences[i] = new Sequence();
+        }
     }
     
     class Sequence {
@@ -74,8 +79,15 @@ public class Solution {
     }
 
     public void solve() {
-        // TODO Auto-generated method stub
-        
+        Map<Integer, Supplier<Query>> queries = new HashMap<>();
+        queries.put(1, AppendQuery::new);
+        queries.put(2, AssignQuery::new);
+        IntStream.range(0, q).forEach(i -> {
+            int query = in.nextInt();
+            int x = in.nextInt();
+            int y = in.nextInt();
+            queries.get(query).get().accept(x, y);
+        });
     }
     
     public Sequence getWithLastAnswer(int x) {

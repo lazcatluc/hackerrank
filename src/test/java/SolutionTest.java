@@ -26,7 +26,9 @@ public class SolutionTest {
             out.close();
         }
         finally {
-            in.close();
+            if (in != null) {
+                in.close();
+            }
         }
     }
     
@@ -73,5 +75,22 @@ public class SolutionTest {
         assignQuery.accept(0, 0);
         
         assertOutput().isEqualTo("1");
+    }
+    
+    @Test
+    public void xorTest() throws Exception {
+        assertThat( (1 ^ 0) % 2 ).isEqualTo(1);
+    }
+    
+    @Test
+    public void solvesSampleInput() throws Exception {
+        Solution solution = withInputFile();
+        
+        solution.solve();
+        
+        assertThat(solution.getSequence(0).get(0)).isEqualTo(5);
+        assertThat(solution.getSequence(1).get(0)).isEqualTo(7);
+        assertThat(solution.getSequence(0).get(1)).isEqualTo(3);
+        assertOutput().matches("7\\r?\\n3");
     }
 }

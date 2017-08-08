@@ -26,7 +26,9 @@ public class SolutionTest {
             out.close();
         }
         finally {
-            in.close();
+            if (in != null) {
+                in.close();
+            }
         }
     }
     
@@ -38,11 +40,6 @@ public class SolutionTest {
     private Solution withInputFile() {
         in = Solution.class.getResourceAsStream("input.txt");
         return new Solution(in, out, new String[]{});
-    }
-    
-    @Test
-    public void buildsSolutionWithInput() throws Exception {
-        assertThat(withInput("input")).isNotNull();
     }
     
     @Test

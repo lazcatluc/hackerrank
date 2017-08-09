@@ -54,6 +54,14 @@ public class SolutionTest {
     }
     
     @Test
+    public void readsTree() throws Exception {
+        Solution solution = withInput("3 2 3 -1 -1 -1 -1");
+        solution.printTree(solution.readTree());
+        
+        assertOutput().isEqualToIgnoringWhitespace("2 1 3");
+    }
+    
+    @Test
     public void solvesInputOutput() throws Exception {
         withInputFile().solve();
         

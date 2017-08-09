@@ -66,12 +66,34 @@ public class Solution {
         return list.get(0);
     }
     
+    public <T> BinaryTree<T> swap(BinaryTree<T> tree, int depth, int originalDepth) {
+        if (tree == null) {
+            return tree;
+        }
+        if (depth == 1) {
+            tree.swapChildren();
+            swap(tree.left, originalDepth, originalDepth);
+            swap(tree.right, originalDepth, originalDepth);
+        }
+        else {
+            tree.left = swap(tree.left, depth - 1, originalDepth);
+            tree.right = swap(tree.right, depth - 1, originalDepth);
+        }
+        return tree;
+    }
+    
     public <T> void printTree(BinaryTree<T> tree) {
         tree.inorder().forEach(t -> out.print(t + " "));
     }
 
     public void solve() {
-        // TODO Auto-generated method stub
-        
+        BinaryTree<Integer> tree = readTree();
+        int swaps = in.nextInt();
+        for (int i = 0; i < swaps; i++) {
+            int depth = in.nextInt();
+            tree = swap(tree, depth, depth);
+            printTree(tree);
+            out.println();
+        };
     }
 }

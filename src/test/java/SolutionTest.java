@@ -62,6 +62,22 @@ public class SolutionTest {
     }
     
     @Test
+    public void readsTreeFromFile() throws Exception {
+        Solution solution = withInputFile();
+        solution.printTree(solution.readTree());
+        
+        assertOutput().isEqualToIgnoringWhitespace("6 9 4 2 1 7 5 10 8 11 3");
+    }
+    
+    @Test
+    public void readsTreeFromFileThenSwaps2() throws Exception {
+        Solution solution = withInputFile();
+        solution.printTree(solution.swap(solution.readTree(), 2, 2));
+        
+        assertOutput().isEqualToIgnoringWhitespace("2 9 6 4 1 3 7 5 11 8 10");
+    }
+    
+    @Test
     public void solvesInputOutput() throws Exception {
         withInputFile().solve();
         

@@ -83,6 +83,11 @@ public class SolutionTest {
         
         assertOutput().isEqualToIgnoringWhitespace(readOutput());
     }
+    
+    @Test
+    public void solvesBigInput() throws Exception {
+        
+    }
 
     private String readOutput() throws IOException {
         try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Solution.class.getResourceAsStream("output.txt"), Charset.forName("UTF-8")))) {

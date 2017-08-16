@@ -45,6 +45,21 @@ public class SolutionTest {
     }
     
     @Test
+    public void findsMax100() throws Exception {
+        assertThat(Solution.findMaximum(new int[] {1, 2, 100}, 0)).isEqualTo(100);
+    }
+    
+    @Test
+    public void solvesIncreasing() throws Exception {
+        assertThat(withInput("1 3 1 2 100").solveOne()).isEqualTo(197);
+    }
+    
+    @Test
+    public void findsMax2StartingAt2() throws Exception {
+        assertThat(Solution.findMaximum(new int[] {1, 3, 1, 2}, 2)).isEqualTo(2);
+    }
+    
+    @Test
     public void buildsSolutionWithInputFile() throws Exception {
         assertThat(withInputFile()).isNotNull();
     }

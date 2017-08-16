@@ -39,7 +39,7 @@ public class Solution {
         return max;
     }
     
-    public int solveOne() {
+    public long solveOne() {
         int pricesCount = in.nextInt();
         int[] prices = new int[pricesCount];
         IntStream.range(0, pricesCount).forEach(i -> prices[i] = in.nextInt());
@@ -61,9 +61,9 @@ public class Solution {
     }
 
     static class Portfolio {
-        private final int stocks;
-        private final int money;
-        private final int stockPrice;
+        private final long stocks;
+        private final long money;
+        private final long stockPrice;
         
         Portfolio(PortfolioBuilder builder) {
             this.stocks = builder.stocks;
@@ -71,7 +71,7 @@ public class Solution {
             this.stockPrice = builder.stockPrice;
         }
 
-        public int getValue() {
+        public long getValue() {
             return money + stocks * stockPrice;
         }
         
@@ -89,21 +89,21 @@ public class Solution {
     }
     
     static class PortfolioBuilder {
-        private int stocks;
-        private int money;
-        private int stockPrice;
+        private long stocks;
+        private long money;
+        private long stockPrice;
         
-        public PortfolioBuilder stocks(int stocks) {
+        public PortfolioBuilder stocks(long stocks) {
             this.stocks = stocks;
             return this;
         }
         
-        public PortfolioBuilder money(int money) {
+        public PortfolioBuilder money(long money) {
             this.money = money;
             return this;
         }
         
-        public PortfolioBuilder stockPrice(int stockPrice) {
+        public PortfolioBuilder stockPrice(long stockPrice) {
             this.stockPrice = stockPrice;
             return this;
         }

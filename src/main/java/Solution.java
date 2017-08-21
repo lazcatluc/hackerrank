@@ -4,7 +4,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -15,6 +17,8 @@ public class Solution {
     private final Scanner in;
     private final PrintStream out;
     private final String[] args;
+    private Map<Integer, List<BinaryTree<Integer>>> depth;
+    private int maxDepth = 0;
     
     static class BinaryTree<T> {
         private final T root;
@@ -26,9 +30,16 @@ public class Solution {
         }
         
         public Stream<T> inorder() {
-            Stream<T> leftStream = left == null ? Stream.empty() : left.inorder();
-            Stream<T> rightStream = right == null ? Stream.empty() : right.inorder();
-            return Stream.concat(Stream.concat(leftStream, Stream.of(root)), rightStream);
+            if (left == null) {
+                if (right == null) {
+                    return Stream.of(root);
+                }
+                return Stream.concat(Stream.of(root), right.inorder());
+            }
+            if (right == null) {
+                return Stream.concat(left.inorder(), Stream.of(root));
+            }
+            return Stream.concat(left.inorder(), Stream.concat(Stream.of(root), right.inorder()));
         }
         
         public void swapChildren() {
@@ -48,7 +59,23 @@ public class Solution {
         new Solution(System.in, System.out, args).solve();
     }
     
-    @SuppressWarnings("unchecked")
+    private void readDepth(BinaryTree<Integer> tree) {
+        depth = new HashMap<>();
+        readDepth(tree, 1);
+    }
+    
+    private void readDepth(BinaryTree<Integer> tree, int currentDepth) {
+        if (tree == null) {
+            return;
+        }
+        if (currentDepth > maxDepth) {
+            maxDepth = currentDepth;
+        }
+        depth.computeIfAbsent(currentDepth, i -> new ArrayList<>()).add(tree);
+        readDepth(tree.left, currentDepth + 1);
+        readDepth(tree.right, currentDepth + 1);
+    }
+
     public BinaryTree<Integer> readTree() {
         int nodes = in.nextInt();
         List<BinaryTree<Integer>> list = IntStream.range(0, nodes).map(i -> i + 1)
@@ -88,12 +115,20 @@ public class Solution {
 
     public void solve() {
         BinaryTree<Integer> tree = readTree();
+        readDepth(tree);
         int swaps = in.nextInt();
         for (int i = 0; i < swaps; i++) {
-            int depth = in.nextInt();
-            tree = swap(tree, depth, depth);
+            int myDepth = in.nextInt();
+            for (int k = 1; k * myDepth <= maxDepth; k++) {
+                swapWithDepth(tree, k * myDepth);
+            }
             printTree(tree);
             out.println();
         };
+    }
+
+    private BinaryTree<Integer> swapWithDepth(BinaryTree<Integer> tree, int currentDepth) {
+        depth.get(currentDepth).forEach(BinaryTree::swapChildren);
+        return tree;
     }
 }

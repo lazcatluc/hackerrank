@@ -67,7 +67,7 @@ public class Solution {
     }
     
     public <T> BinaryTree<T> swap(BinaryTree<T> tree, int depth, int originalDepth) {
-        if (tree == null) {
+        if (tree == null || depth == 0) {
             return tree;
         }
         if (depth == 1) {
